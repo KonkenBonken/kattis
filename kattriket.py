@@ -13,9 +13,12 @@ res = ''
 
 def step(occupied):
     available = tuple(filter(
-        lambda state: state in occupied, States[occupied[-1]]
+        lambda state: state not in occupied, States[occupied[-1]]
     ))
-    return tuple(step((*occupied, state)) for state in available) if len(available) > 0 else -1
+    if len(available) > 1:
+        return tuple(step((*occupied, state)) for state in available)
+    else:
+        return available[0]
 
 
 print(step((0,)))
