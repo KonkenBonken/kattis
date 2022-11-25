@@ -1,5 +1,5 @@
 N = int(input())
-States = ([],)*N
+States = [[]]*N
 Roads = [(int(n) for n in input().split()) for _ in range(N - 1)]
 
 for a, b in Roads:
@@ -9,16 +9,20 @@ for a, b in Roads:
 print(States)
 
 res = ''
+tree = States[0]
+
+def flat_map(f, xs):
+    ys = []
+    for x in xs:
+        ys.extend(f(x))
+    return ys
 
 
-def step(occupied):
-    available = tuple(filter(
-        lambda state: state not in occupied, States[occupied[-1]]
-    ))
-    if len(available) > 1:
-        return tuple(step((*occupied, state)) for state in available)
-    else:
-        return available[0]
+def branch(options):
+    print('tree',tree, options)
+    for i in range(2,len(options)):
+        options[i] =list(States[options[i]])
+        branch(options[i])
 
-
-print(step((0,)))
+branch(tree)
+print(tree)
