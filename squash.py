@@ -1,9 +1,10 @@
 N, K = (int(n) for n in input().split())
-Games = input()
+Games = [1 if c == 'V' else -1 for c in input()]
 
-res = -1
+attempts = [Games]
 
-for rate in range(1, K + 1):
+for length in range(1, N):
+    for i in range(N-length):
+        attempts.append(Games[i:i+length] )
 
-
-print(res)
+print(sum(max(attempts, key=sum)))
