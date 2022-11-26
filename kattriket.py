@@ -9,22 +9,16 @@ for a, b in Roads:
 print(States)
 
 res = ''
-tree = States[0]
+tree = States[0].copy()
 
 
-def flat_map(f, xs):
-    ys = []
-    for x in xs:
-        ys.extend(f(x))
-    return ys
-
-
-def branch(options):
-    print('tree', tree, options)
-    for i in range(2, len(options)):
+def branch(options, state_idx):
+    for i in range(len(options)):
         options[i] = list(States[options[i]])
-        branch(options[i])
+        States[options[i]].remove(state_idx)  # dont burn global bridges
+        States[state_idx].remove(options[i])
+        branch(options[i], options[i])
 
 
-branch(tree)
+branch(tree, 0)
 print(tree)
