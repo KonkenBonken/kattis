@@ -11,6 +11,7 @@ print(States)
 res = ''
 tree = States[0]
 
+
 def flat_map(f, xs):
     ys = []
     for x in xs:
@@ -19,10 +20,11 @@ def flat_map(f, xs):
 
 
 def branch(options):
-    print('tree',tree, options)
-    for i in range(2,len(options)):
-        options[i] =list(States[options[i]])
+    print('tree', tree, options)
+    for i in range(2, len(options)):
+        options[i] = list(States[options[i]])
         branch(options[i])
+
 
 branch(tree)
 print(tree)
