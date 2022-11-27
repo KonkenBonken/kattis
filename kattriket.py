@@ -1,10 +1,9 @@
 N = int(input())
-States = [[]for _ in range(N)]
+States = [[] for _ in range(N)]
 Roads = [tuple(int(n) for n in input().split()) for _ in range(N - 1)]
 
-for a, b in Roads:
-    States[a].append(b)
-    # States[b].append(a)
+for road in Roads:
+    States[min(road)].append(max(road))
 
 res = [1]
 
