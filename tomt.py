@@ -12,14 +12,21 @@ def dist(houses):
     return sum(dist_houses(houses[i], houses[i+1]) for i in range(len(houses) - 1))
 
 
-houses.sort(key=dist_houses)
+def closest(path, i):
+    house = path[i-1]
+    return min((h for h in houses if h not in path), key=lambda h: dist_houses(house, h))
 
-current = (1e9, [(0, 0, i+1) for i in range(N//2)])
 
-for start in range(N//2):
-    d = dist(houses[start:N//2+start])
-    print(current[0], d)
+current = (int(1e9), [(0, 0, i+1) for i in range(N//2)])
+
+for start in range(N):
+    d = 0
+    path = [None]*(N//2)
+    path[0] = houses[start]
+    for i in range(1, N//2):
+        path[i] = closest(path, i)
+        d += dist_houses(houses[start], path[i])
     if d < current[0]:
-        current = (d, houses[start:N//2+start])
+        current = (d, path)
 
 print(" ".join(str(house[2]) for house in current[1]))
