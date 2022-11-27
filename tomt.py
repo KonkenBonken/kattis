@@ -3,9 +3,16 @@ N = int(input())
 
 houses = [(*(int(n) for n in input().split()), i) for i in range(N)]
 
+dist_memo = {}
+
 
 def dist_houses(a, b=(0, 0)):
-    return abs(a[0] - b[0]) + abs(a[1] - b[1])
+    key = str(a[2])+'-'+str(b[2])
+    if key in dist_memo:
+        return dist_memo[key]
+    res = abs(a[0] - b[0]) + abs(a[1] - b[1])
+    dist_memo[key] = res
+    return res
 
 
 def dist(houses):
