@@ -1,7 +1,14 @@
+from random import shuffle
 input()
 N = int(input())
-
 houses = [(*(int(n) for n in input().split()), i) for i in range(N)]
+
+tries = N
+
+if N > 1000:
+    tries = 1000
+    from random import shuffle
+    shuffle(houses)
 
 dist_memo = {}
 
@@ -26,13 +33,12 @@ def closest(path, i):
 
 current = (int(1e9), [(0, 0, i+1) for i in range(N//2)])
 
-for start in range(N):
-    d = 0
+for start in range(tries):
     path = [None]*(N//2)
     path[0] = houses[start]
     for i in range(1, N//2):
         path[i] = closest(path, i)
-        d += dist_houses(houses[start], path[i])
+    d = dist(path)
     if d < current[0]:
         current = (d, path)
 
