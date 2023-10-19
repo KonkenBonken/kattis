@@ -50,7 +50,7 @@ if missing_command[1] != 't':
         rx = fx + sx
         ry = fy + sy
         
-        if rx < .005 or ry < .005:
+        if abs(rx) < .005 and abs(ry) < .005:
             print(step)
             break
 
