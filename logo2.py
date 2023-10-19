@@ -42,7 +42,7 @@ for cmd, amt in second_half:
 
 if missing_command[1] == 't':
     m = -1 if missing_command[0] == 'r' else 1
-    print(round(360 - deg(sθ))*m)
+    print(round(360 - deg(sθ))*m % 360)
 
 else:
     m = -1 if missing_command[0] == 'b' else 1
