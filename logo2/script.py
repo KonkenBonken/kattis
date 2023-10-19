@@ -1,42 +1,59 @@
-from math import cos, sin, sqrt
+from math import cos, sin, radians as rad
 
 test_count = int(input())
 command_count = int(input())
 raw_commands = [input().split() for _ in range(command_count)]
 
-missing_index = next(i for i in range(command_count) if raw_commands[i][-1] == '?')
+missing_index = next(i for i in range(command_count)
+                     if raw_commands[i][-1] == '?')
 
 missing_command = raw_commands[missing_index][0]
-first_half = [(cmd,int(amt)) for cmd,amt in raw_commands[:missing_index]]
-second_half = [(cmd,int(amt)) for cmd,amt in raw_commands[missing_index + 1:]]
+first_half = [(cmd, int(amt)) for cmd, amt in
+              raw_commands[:missing_index]]
+second_half = [(cmd, int(amt)) for cmd, amt in
+               raw_commands[missing_index + 1:]]
 
 
-fx, fy, θ = 0, 0, 0
+fx, fy, fθ = 0, 0, 0
 
 for cmd, amt in first_half:
     if cmd[1] == 't':
         if cmd[0] == 'l':
             amt *= -1
-        θ = (θ + amt) % 360
+        fθ = (fθ + rad(amt)) % rad(360)
     else:
         if cmd[0] == 'b':
             amt *= -1
-        fx += cos(θ) * amt
-        fy += sin(θ) * amt
-print(fx, fy, θ)
+        fx += cos(fθ) * amt
+        fy += sin(fθ) * amt
+print(fx, fy, fθ)
 
-sx, sy, θ = 0, 0, 0
+sx, sy, sθ = 0, 0, fθ
 
-for cmd, amt in reversed(second_half):
+for cmd, amt in second_half:
     if cmd[1] == 't':
-        if cmd[0] == 'r':
+        if cmd[0] == 'l':
             amt *= -1
-        θ = (θ + amt) % 360
+        sθ = (sθ + rad(amt)) % rad(360)
     else:
-        if cmd[0] == 'f':
+        if cmd[0] == 'b':
             amt *= -1
-        sx += cos(θ) * amt
-        sy += sin(θ) * amt
-print(sx, sy, θ)
+        sx += cos(sθ) * amt
+        sy += sin(sθ) * amt
+print(sx, sy, sθ)
 
-print(sqrt((fx-sx)**2+(fy-sy)**2))
+if missing_command[1] != 't':
+    step = 0
+    while True:
+        fx += cos(fθ)
+        fy += sin(fθ)
+
+        rx = fx + sx
+        ry = fy + sy
+
+        print(step, rx, ry)
+        if rx < .005 or ry < .005:
+            print(step)
+            break
+
+        step += 1
