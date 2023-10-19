@@ -40,7 +40,18 @@ for cmd, amt in second_half:
         sx += cos(sθ) * amt
         sy += sin(sθ) * amt
 
-if missing_command[1] != 't':
+if missing_command[1] == 't':
+    m = -1 if missing_command[0] == 'r' else 1
+    for step in range(360):
+        rx = fx + cos(rad(step)*m)*sx - sin(rad(step)*m)*sy
+        ry = fy + sin(rad(step)*m)*sx - cos(rad(step)*m)*sy
+        
+        print(step,rx,ry)
+        if abs(rx) < .005 and abs(ry) < .005:
+            print(step)
+            break
+        
+else:
     m = -1 if missing_command[0] == 'b' else 1
     step = 1
     while True:
