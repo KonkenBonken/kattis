@@ -22,9 +22,9 @@ def is_reachable(tile_x, tile_y):
 
     def bfs(x, y):
         if (x,y) in memo:
-            return memo[(x,y)]
+            return memo[(x, y)]
         if x < 0 or y < 0 or x >= len(tiles[0]) or y >= len(tiles):
-            return False
+            return False 
         if x == sthlm_x and y == sthlm_y:
             return True
         if tiles[y][x] == '.' or (x, y) in visited:
@@ -32,14 +32,16 @@ def is_reachable(tile_x, tile_y):
 
         visited.add((x, y))
 
-        return bfs(x-1, y) or bfs(x+1, y) or bfs(x, y-1) or bfs(x, y+1)
+        memo[(x, y)] = bfs(x-1, y) or bfs(x+1, y) or bfs(x, y-1) or bfs(x, y+1)
+        return memo[(x, y)]
 
     reachable = bfs(tile_x, tile_y)
-    memo[(tile_x,tile_y)]=reachable
+    memo[(tile_x, tile_y)] = reachable
     return reachable
 
 
 def print_area():
+    memo = dict()
     area = 1
     for y, row in enumerate(tiles):
         for x, tile in enumerate(row):
@@ -51,6 +53,5 @@ def print_area():
 print_area()
 
 for y, x in changes:
-    memo = dict()
     tiles[y-1][x-1] = '#'
     print_area()
