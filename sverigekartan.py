@@ -1,9 +1,9 @@
-R = int(input())
+# Group 2:
+R = int(input())  # = 1
 C = int(input())
-U = int(input())
+U = int(input())  # = 0
 
-karta = (input() for _ in range(R))
+karta = list(input() for _ in range(R))[0]
 changes = (((int(x), int(y)) for y, x in input().split()) for _ in range(R))
 
-for row in karta:
-    print(row)
+print(len(next(seq for seq in karta.split('.') if 'S' in seq)))
