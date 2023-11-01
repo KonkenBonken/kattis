@@ -10,6 +10,10 @@ sthlm_y = next(y for y, row in enumerate(tiles) if 'S' in row)
 sthlm_x = tiles[sthlm_y].index('S')
 
 
+def adjacent(x, y):
+    return (x-1, y), (x+1, y), (x, y-1), (x, y+1)
+
+
 def print_area():
     visited = set()
     queue = [(sthlm_x, sthlm_y)]
@@ -22,9 +26,8 @@ def print_area():
             if x < 0 or y < 0 or y >= len(tiles) or x >= len(tiles[0]) or tiles[y][x] == '.':
                 continue
             visited.add((x, y))
-            queue.extend((
-                (x-1, y), (x+1, y), (x, y-1), (x, y+1)
-            ))
+            queue.extend(adjacent(x, y))
+
     print(len(visited))
 
 
