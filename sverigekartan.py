@@ -5,11 +5,9 @@ R = int(input())
 C = int(input())
 U = int(input())
 
-karta = (input() for _ in range(R))
-
+tiles = tuple(tuple(row) for row in (input() for _ in range(R)))
 changes = ((int(x) for x in input().split()) for _ in range(U))
 
-tiles = [list(row) for row in karta]
 
 sthlm_y = next(y for y, row in enumerate(tiles) if 'S' in row)
 sthlm_x = tiles[sthlm_y].index('S')
