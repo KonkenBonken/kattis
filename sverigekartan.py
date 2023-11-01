@@ -1,6 +1,3 @@
-# Groups 1, 2, 3, 4 & 5:
-from collections import deque
-
 R = int(input())
 C = int(input())
 U = int(input())
@@ -15,9 +12,11 @@ sthlm_x = tiles[sthlm_y].index('S')
 
 def print_area():
     visited = set()
-    queue = deque([(sthlm_x, sthlm_y)])
-    while len(queue):
-        x, y = queue.popleft()
+    queue = [(sthlm_x, sthlm_y)]
+    padLeft = 0
+    while padLeft < len(queue):
+        x, y = queue[padLeft]
+        padLeft += 1
 
         if (x, y) not in visited:
             if x < 0 or y < 0 or y >= len(tiles) or x >= len(tiles[0]) or tiles[y][x] == '.':
