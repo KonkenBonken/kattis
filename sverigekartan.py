@@ -1,3 +1,6 @@
+from sys import setrecursionlimit
+setrecursionlimit(10**6)
+
 # Groups 1, 2, 3 & 5:
 R = int(input())
 C = int(input())
@@ -12,11 +15,14 @@ tiles = [list(row) for row in karta]
 sthlm_y = next(y for y, row in enumerate(tiles) if 'S' in row)
 sthlm_x = tiles[sthlm_y].index('S')
 
+memo = dict()
 
 def is_reachable(tile_x, tile_y):
     visited = set()
 
     def bfs(x, y):
+        if (x,y) in memo:
+            return memo[(x,y)]
         if x < 0 or y < 0 or x >= len(tiles[0]) or y >= len(tiles):
             return False
         if x == sthlm_x and y == sthlm_y:
@@ -28,7 +34,9 @@ def is_reachable(tile_x, tile_y):
 
         return bfs(x-1, y) or bfs(x+1, y) or bfs(x, y-1) or bfs(x, y+1)
 
-    return bfs(tile_x, tile_y)
+    reachable = bfs(tile_x, tile_y)
+    memo[(tile_x,tile_y)]=reachable
+    return reachable
 
 
 def print_area():
@@ -43,5 +51,6 @@ def print_area():
 print_area()
 
 for y, x in changes:
+    memo = dict()
     tiles[y-1][x-1] = '#'
     print_area()
