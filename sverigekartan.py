@@ -17,14 +17,15 @@ sthlm_x = tiles[sthlm_y].index('S')
 
 memo = dict()
 
+
 def is_reachable(tile_x, tile_y):
     visited = set()
 
     def bfs(x, y):
-        if (x,y) in memo:
+        if (x, y) in memo:
             return memo[(x, y)]
         if x < 0 or y < 0 or x >= len(tiles[0]) or y >= len(tiles):
-            return False 
+            return False
         if x == sthlm_x and y == sthlm_y:
             return True
         if tiles[y][x] == '.' or (x, y) in visited:
@@ -41,6 +42,7 @@ def is_reachable(tile_x, tile_y):
 
 
 def print_area():
+    global memo
     memo = dict()
     area = 1
     for y, row in enumerate(tiles):
