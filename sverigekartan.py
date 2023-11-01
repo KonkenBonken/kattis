@@ -2,7 +2,7 @@ R = int(input())
 C = int(input())
 U = int(input())
 
-tiles = tuple(tuple(row) for row in (input() for _ in range(R)))
+tiles = tuple(list(row) for row in (input() for _ in range(R)))
 changes = ((int(x) for x in input().split()) for _ in range(U))
 
 
