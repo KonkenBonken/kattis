@@ -1,55 +1,32 @@
-from sys import setrecursionlimit
-setrecursionlimit(10**6)
+# Groups 1, 2, 3, 4 & 5:
+from collections import deque
 
-# Groups 1, 2, 3 & 5:
 R = int(input())
 C = int(input())
 U = int(input())
 
-karta = (input() for _ in range(R))
-
+tiles = tuple(tuple(row) for row in (input() for _ in range(R)))
 changes = ((int(x) for x in input().split()) for _ in range(U))
 
-tiles = [list(row) for row in karta]
 
 sthlm_y = next(y for y, row in enumerate(tiles) if 'S' in row)
 sthlm_x = tiles[sthlm_y].index('S')
 
-memo = dict()
-
-
-def is_reachable(tile_x, tile_y):
-    visited = set()
-
-    def bfs(x, y):
-        if (x, y) in memo:
-            return memo[(x, y)]
-        if x < 0 or y < 0 or x >= len(tiles[0]) or y >= len(tiles):
-            return False
-        if x == sthlm_x and y == sthlm_y:
-            return True
-        if tiles[y][x] == '.' or (x, y) in visited:
-            return False
-
-        visited.add((x, y))
-
-        memo[(x, y)] = bfs(x-1, y) or bfs(x+1, y) or bfs(x, y-1) or bfs(x, y+1)
-        return memo[(x, y)]
-
-    reachable = bfs(tile_x, tile_y)
-    memo[(tile_x, tile_y)] = reachable
-    return reachable
-
 
 def print_area():
-    global memo
-    memo = dict()
-    area = 1
-    for y, row in enumerate(tiles):
-        for x, tile in enumerate(row):
-            if tile == '#' and is_reachable(x, y):
-                area += 1
-    print(area)
+    visited = set()
+    queue = deque([(sthlm_x, sthlm_y)])
+    while len(queue):
+        x, y = queue.popleft()
+
+        if (x, y) not in visited:
+            if x < 0 or y < 0 or y >= len(tiles) or x >= len(tiles[0]) or tiles[y][x] == '.':
+                continue
+            visited.add((x, y))
+            queue.extend((
+                (x-1, y), (x+1, y), (x, y-1), (x, y+1)
+            ))
+    print(len(visited))
 
 
 print_area()
