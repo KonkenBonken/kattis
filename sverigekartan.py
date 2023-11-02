@@ -1,3 +1,5 @@
+from collections import deque
+
 R = int(input())
 C = int(input())
 U = int(input())
@@ -20,11 +22,9 @@ def adjacent(x, y):
 
 def print_area():
     visited = set()
-    queue = [(sthlm_x, sthlm_y)]
-    padLeft = 0
-    while padLeft < len(queue):
-        x, y = queue[padLeft]
-        padLeft += 1
+    queue = deque([(sthlm_x, sthlm_y)])
+    while len(queue):
+        x, y = queue.popleft()
 
         if (x, y) not in visited:
             if tiles[y][x] == '.':
