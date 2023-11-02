@@ -41,9 +41,9 @@ for y, x in changes:
     tiles[y-1][x-1] = '#'
     adj = adjacent(x-1, y-1)
 
-    all_water = all(tiles[y][x] == '.' for x, y in adj)
-
-    if all_water:
-        print(len(mainland))
-    else:
+    any_mainland = any((x, y) in mainland for x, y in adj)
+    
+    if any_mainland:
         mainland = print_area()
+    else:
+        print(len(mainland))
