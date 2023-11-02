@@ -33,10 +33,18 @@ def print_area():
             queue.extend(adjacent(x, y))
 
     print(len(visited))
+    return visited
 
 
-print_area()
+mainland = print_area()
 
 for y, x in changes:
     tiles[y-1][x-1] = '#'
-    print_area()
+    adj = adjacent(x-1, y-1)
+
+    all_water = all(tiles[y][x] == '.' for x, y in adj)
+
+    if all_water:
+        print(len(mainland))
+    else:
+        mainland = print_area()
