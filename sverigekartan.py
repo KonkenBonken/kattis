@@ -35,6 +35,22 @@ def print_area():
     return visited
 
 
+def print_change(mainland, cx, cy):
+    visited = mainland
+    queue = deque([(cx, cy)])
+    while len(queue):
+        x, y = queue.popleft()
+
+        if (x, y) not in visited:
+            if tiles[y][x] == '.':
+                continue
+            visited.add((x, y))
+            queue.extend(adjacent(x, y))
+
+    print(len(visited))
+    return visited
+
+
 mainland = print_area()
 
 for y, x in changes:
@@ -42,8 +58,8 @@ for y, x in changes:
     adj = adjacent(x-1, y-1)
 
     any_mainland = any((x, y) in mainland for x, y in adj)
-    
+
     if any_mainland:
-        mainland = print_area()
+        mainland = print_change(mainland, x-1, y-1)
     else:
         print(len(mainland))
