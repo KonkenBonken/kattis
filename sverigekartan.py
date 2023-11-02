@@ -19,23 +19,7 @@ def adjacent(x, y):
     )
 
 
-def print_area():
-    visited = set()
-    queue = deque([(sthlm_x, sthlm_y)])
-    while len(queue):
-        x, y = queue.popleft()
-
-        if (x, y) not in visited:
-            if tiles[y][x] == '.':
-                continue
-            visited.add((x, y))
-            queue.extend(adjacent(x, y))
-
-    print(len(visited))
-    return visited
-
-
-def print_change(mainland, cx, cy):
+def print_area(mainland=set(), cx=sthlm_x, cy=sthlm_y):
     visited = mainland
     queue = deque([(cx, cy)])
     while len(queue):
@@ -60,6 +44,6 @@ for y, x in changes:
     any_mainland = any((x, y) in mainland for x, y in adj)
 
     if any_mainland:
-        mainland = print_change(mainland, x-1, y-1)
+        mainland = print_area(mainland, x-1, y-1)
     else:
         print(len(mainland))
