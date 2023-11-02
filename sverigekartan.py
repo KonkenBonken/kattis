@@ -14,8 +14,7 @@ sthlm_x = tiles[sthlm_y].index('S')
 
 def adjacent(x, y):
     return filter(
-        lambda c: c[0] >= 0 and c[1] >= 0 and c[1] < len(
-            tiles) and c[0] < len(tiles[0]),
+        lambda c: c[0] >= 0 and c[1] >= 0 and c[1] < R and c[0] < C,
         ((x-1, y), (x+1, y), (x, y-1), (x, y+1))
     )
 
