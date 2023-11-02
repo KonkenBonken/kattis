@@ -11,7 +11,11 @@ sthlm_x = tiles[sthlm_y].index('S')
 
 
 def adjacent(x, y):
-    return (x-1, y), (x+1, y), (x, y-1), (x, y+1)
+    return filter(
+        lambda c: c[0] >= 0 and c[1] >= 0 and c[1] < len(
+            tiles) and c[0] < len(tiles[0]),
+        ((x-1, y), (x+1, y), (x, y-1), (x, y+1))
+    )
 
 
 def print_area():
@@ -23,7 +27,7 @@ def print_area():
         padLeft += 1
 
         if (x, y) not in visited:
-            if x < 0 or y < 0 or y >= len(tiles) or x >= len(tiles[0]) or tiles[y][x] == '.':
+            if tiles[y][x] == '.':
                 continue
             visited.add((x, y))
             queue.extend(adjacent(x, y))
