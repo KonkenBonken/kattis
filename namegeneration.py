@@ -1,31 +1,34 @@
 N = int(input())
 names = set()
 
-vw, vl = ('a', 'e', 'i', 'o', 'u'), 5
-cn, cl = ('b', 'c', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'm',
-          'n', 'p', 'q', 'r', 's', 't', 'v', 'w', 'x', 'y', 'z'), 21
+vw = ('a', 'e', 'i', 'o', 'u')
+cn = ('b', 'c', 'd', 'f', 'g', 'h', 'j', 'k', 'l', 'm',
+      'n', 'p', 'q', 'r', 's', 't', 'v', 'w', 'x', 'y', 'z')
 
-long_length = N+21
-long_gen = (
-    cn[a % cl] + vw[b % vl] + cn[c % cl] + vw[d % vl] + cn[e % cl] + vw[f % vl]
-    for f in range(vl)
-    for e in range(vl)
-    for d in range(vl)
-    for c in range(cl)
-    for b in range(cl)
-    for a in range(cl)
-)
 
-long_name = ''.join(next(long_gen) for _ in range(long_length//6))
+def has_3_1(n):
+    a = n >> 1
+    b = n & a
+    c = b >> 1
+    return c & b != 0
 
-used_names = set()
 
-for l in range(3, 21):
-    i = 0
-    while len(used_names) < N:
-        name = long_name[i:i+l]
+def has_3(n):
+    return has_3_1(n) or has_3_1(int("{0:b}".format(n).replace('1', 'x').replace('0', '1').replace('x', '0'), 2))
+
+
+def gen():
+    i = 599186
+    while True:
         i += 1
-        if name in used_names:
-            break
-        print(name)
-        used_names.add(name)
+        if has_3(i):
+            continue
+        name = ''
+        for j in range(20):
+            charset = cn if i & (2**j) else vw
+            name += charset[i % len(charset)]
+        yield name
+
+
+names = gen()
+print(*(next(names) for _ in range(N)), sep='\n')
