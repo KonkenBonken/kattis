@@ -23,11 +23,12 @@ def gen():
         i += 1
         if has_3(i):
             continue
-        name = ''
-        for j in range(20):
-            charset = cn if i & (2**j) else vw
-            name += charset[i % len(charset)]
-        yield name
+        for c in range(len(cn)):
+            name = ''
+            for j in range(20):
+                charset = cn if i & (2**j) else vw
+                name += charset[c % len(charset)]
+            yield name
 
 
 names = gen()
