@@ -32,4 +32,6 @@ def gen():
 
 
 names = gen()
-print(*(next(names) for _ in range(N)), sep='\n')
+
+for _ in range(N):
+    print(next(names))
