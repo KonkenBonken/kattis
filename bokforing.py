@@ -1,13 +1,13 @@
 N, Q = (int(n) for n in input().split())
-people = list(0 for _ in range(N))
+base, people = 0, {}
 
 for _ in range(Q):
     instruction, *n = input().split()
 
     if instruction == 'SET':
         i, x = (int(m) for m in n)
-        people[i-1] = x
+        people[i] = x
     elif instruction == 'RESTART':
-        people = list(int(n[0]) for _ in range(N))
+        base, people = int(n[0]), {}
     elif instruction == 'PRINT':
-        print(people[int(n[0])-1])
+        print(people.get(int(n[0]), base))
