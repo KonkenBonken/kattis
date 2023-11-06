@@ -1,27 +1,40 @@
+from math import ceil
+
+
 L = int(input())
+
 
 def en(n):
     return n * len(str(n))
 
-n = 2**20
-e=-1
 
-for _ in range(50):
+def pr(n):
+    print(n)
+    exit()
+
+
+n = 10**20
+global e
+e = -1
+
+
+for p in range(100, 1, -1):
+    e = en(n)
+
+    if e > L:
+        while e > L:
+            n //= p
+            e = en(n)
+    elif e < L:
+        while e < L:
+            n = n + ceil(n/p)
+            e = en(n)
+    else:
+        pr(n)
+
+while True:
     e = en(n)
     if e == L:
-        print(n)
-        break
-    elif e > L:
-        n //= 2
-    elif e < L:
-        n = n + n//2
-else:
-    while True:
-        e = en(n)
-        if e == L:
-            print(n)
-            break
-        elif e > L:
-            n -= 1
-        elif e < L:
-            n += 1
+        pr(n)
+    else:
+        n += -1 if e > L else 1
