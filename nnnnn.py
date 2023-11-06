@@ -1,6 +1,7 @@
 L = int(input())
 
-for t in range(L):
-    en = str(t) * t
-    if len(en) == L:
-        print(t)
+for n in range(L+1):
+    en = n * len(str(n))
+    if en == L:
+        print(n)
+        break
