@@ -1,9 +1,18 @@
 N = int(input())
 
-def D(statues,printers,days):
-    if statues+printers >= N:
-        return days+1
-    
-    return min(D(statues+(printers-new_printers),printers+new_printers,days+1) for new_printers in range(printers+1))
-    
-print(D(0,1,0))
+if N == 1:
+    print(1)
+else:
+    last = 10**5
+    for printers in range(1, N+1):
+        days, statues = printers-1, 0
+        while statues < N:
+            days += 1
+            statues += printers
+        
+        if days >= last:
+            print(last)
+            break
+        
+        last = days
+        printers+=1
