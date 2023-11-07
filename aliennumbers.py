@@ -1,18 +1,12 @@
-cases = int(input())
-
-for case in range(1, cases+1):
+for case in range(int(input())):
     ali, src, trg = input().split()
-    num = 0
+    res = ''
 
-    for i, c in enumerate(reversed(ali)):
-        num += src.index(c) * len(src)**i
-    
-    trg_base, res = len(trg), ''
-    
-    strt = next(i for i in range(10**10) if num<trg_base**i)
-    for i in range(strt-1,-1,-1):
-        div,mod = divmod(num,trg_base**i)
-        res += trg[div]
-        num = mod
+    num = sum(src.index(c) * len(src)**i for i, c in enumerate(reversed(ali)))
+    strt = next(i for i in range(10**10) if num < len(trg)**i)
         
-    print(f'Case #{case}: {res}')
+    for i in range(strt-1, -1, -1):
+        div, num = divmod(num, len(trg)**i)
+        res += trg[div]
+
+    print(f'Case #{case+1}: {res}')
