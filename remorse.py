@@ -1,4 +1,4 @@
-src = tuple(c.upper() for c in input() if c.isalnum())
+src = tuple(c.upper() for c in input() if c.isalpha())
 chars = sorted(set(src), key=src.count)
 
 if len(src) == 1:
