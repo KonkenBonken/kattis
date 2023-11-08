@@ -1,13 +1,13 @@
-memo = {
-    0: '0', 1: '1'
-}
-
 def F(n):
-    if n in memo:
-        return memo[n]
-    f = F(n-1) + F(n-2)
-    memo[n] = f
-    return f
+    if n <= 1:
+        return str(n)
+    a, b = '0', '1'
+    for _ in range(n-1):
+        c = b+a
+        a = b
+        b = c
+    return b
+
 
 i = 1
 while True:
