@@ -4,7 +4,7 @@ chars = reversed(sorted(set(src), key=src.count))
 b, res = 0, -3
 for c in chars:
     m = format(b, 'b')
-    res += 3 + m.count('0') + m.count('1')*3 + len(m)-1
+    res += (3 + m.count('0') + m.count('1')*3 + len(m)-1) * src.count(chars[i])
     b += 1
 
 print(res)
