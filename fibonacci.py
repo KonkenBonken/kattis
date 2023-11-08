@@ -1,12 +1,11 @@
 def F(n):
     if n <= 1:
         return str(n)
-    a, b = '0', '1'
-    for _ in range(n-1):
-        c = b+a
-        a = b
-        b = c
-    return b
+    a, b = 1, 2
+    for _ in range(n-2):
+        c = b << a.bit_length() | a
+        a, b = b, c
+    return format(b, 'b')
 
 
 i = 1
