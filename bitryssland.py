@@ -1,4 +1,4 @@
-N, M = (int(x)for x in input().split())
+input()
 coins = (int(x)for x in input().split())
 products = (int(x)for x in input().split())
 
