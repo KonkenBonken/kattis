@@ -1,6 +1,10 @@
 src = tuple(c.upper() for c in input() if c.isalnum())
 chars = sorted(set(src), key=src.count)
 
+if len(src) == 1:
+    print(1)
+    exit()
+
 res = -2
 l = 0
 
