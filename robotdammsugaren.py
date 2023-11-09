@@ -7,13 +7,22 @@ rx = next(i for i, tile in enumerate(room[ry]) if 'O' == tile)
 
 for com in sequence:
     if com == '>':
-        rx = next(i+rx-1 for i,
-                  tile in enumerate(room[ry][rx:]) if '#' == tile)
+        for i,  tile in enumerate(room[ry][rx:]):
+            if '#' == tile:
+                rx += i-1
+                break
     elif com == '<':
-        rx = next(i+1 for i, tile in reversed(
-            list(enumerate(room[ry][:rx+1]))) if '#' == tile)
+        for i, tile in reversed(list(enumerate(room[ry][:rx+1]))):
+            if '#' == tile:
+                rx = i+1
+                break
     elif com == 'v':
-        ry = next(i+ry-1 for i, row in enumerate(room[ry:]) if '#' == row[rx])
+        for i, row in enumerate(room[ry:]):
+            if '#' == row[rx]:
+                ry += i-1
+                break
     elif com == '^':
-        ry = next(i+1 for i, row in reversed(
-            list(enumerate(room[:ry+1]))) if '#' == row[rx])
+        for i, row in reversed(list(enumerate(room[:ry+1]))):
+            if '#' == row[rx]:
+                ry = i+1
+                break
