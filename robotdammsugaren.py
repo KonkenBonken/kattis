@@ -12,3 +12,8 @@ for com in sequence:
     elif com == '<':
         rx = next(i+1 for i, tile in reversed(
             list(enumerate(room[ry][:rx+1]))) if '#' == tile)
+    elif com == 'v':
+        ry = next(i+ry-1 for i, row in enumerate(room[ry:]) if '#' == row[rx])
+    elif com == '^':
+        ry = next(i+1 for i, row in reversed(
+            list(enumerate(room[:ry+1]))) if '#' == row[rx])
