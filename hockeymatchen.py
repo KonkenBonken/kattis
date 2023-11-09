@@ -11,8 +11,13 @@ def save(A, B):
         A[2] = B[0]+A[1]
 
 
-save(teamOne, teamTwo)
-save(teamTwo, teamOne)
+prev = ''
+while True:
+    save(teamOne, teamTwo)
+    save(teamTwo, teamOne)
+    if str(teamOne)+str(teamTwo) == prev:
+        break
+    prev = str(teamOne)+str(teamTwo)
 
 print(*teamOne)
 print(*teamTwo)
