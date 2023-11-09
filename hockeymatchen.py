@@ -10,6 +10,10 @@ def save(A, B):
     if B[0] != -1 and A[1] != -1 and A[2] == -1:
         A[2] = B[0]+A[1]
 
+    if A[2] == 0:
+        B[0] = 0
+        A[1] = 0
+
 
 prev = ''
 while True:
