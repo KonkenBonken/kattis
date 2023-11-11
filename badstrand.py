@@ -1,8 +1,8 @@
-N, B = (int(x) for x in input().split())
-A = [int(x) for x in input().split()]
+plot_count, budget = (int(x) for x in input().split())
+plots = [int(x) for x in input().split()]
 
-for l in range(N+1, 0, -1):
-    for i in range(N-l+1):
-        if sum(A[i:i+l]) <= B:
+for l in range(plot_count+1, 0, -1):
+    for i in range(plot_count-l+1):
+        if sum(plots[i:i+l]) <= budget:
             print(l)
             exit()
