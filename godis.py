@@ -10,12 +10,13 @@ combinations = []
 
 def flatten(l):
     flat = []
-    for bag in l:
-        flat.extend(bag)
+    for comb in l:
+        for bag in comb:
+            flat.extend(bag)
     return flat
+
 
 for length in range(1, N+1):
     for i in range(N-length+1):
-        comb = flatten(flatten([[s]*n for s, n in bag]
-                               for bag in bags[i:i+length]))
+        comb = flatten([[s]*n for s, n in bag] for bag in bags[i:i+length])
         combinations.append(comb)
