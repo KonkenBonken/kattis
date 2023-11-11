@@ -1,4 +1,4 @@
-N, Q = (int(x) for x in input().split())
+input()
 days = [int(x) for x in input().split()]
 people = [int(x) for x in input().split()]
 
