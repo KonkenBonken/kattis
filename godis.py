@@ -19,4 +19,16 @@ def flatten(l):
 for length in range(1, N+1):
     for i in range(N-length+1):
         comb = flatten([[s]*n for s, n in bag] for bag in bags[i:i+length])
+        j = 0
+        while j < len(comb):
+            if comb[j] > 0 and -comb[j] in comb:
+                candy = comb[j]
+                del comb[j]
+                if comb.index(-candy) < j:
+                    j -= 1
+                del comb[comb.index(-candy)]
+            else:
+                j += 1
         combinations.append(comb)
+
+print(max(len(l) for l in combinations))
