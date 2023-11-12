@@ -24,3 +24,15 @@ while len(nut_locations) > 0:
             break
         queue.extend(tree[i] for i in node[1] if tree[i][0] not in visited)
         dist += 1
+
+
+queue, visited = deque([curr]), set((curr[0],))
+while len(queue) > 0:
+    node = queue.popleft()
+    visited.add(node[0])
+    if node is tree[0]:
+        break
+    queue.extend(tree[i] for i in node[1] if tree[i][0] not in visited)
+    dist += 1
+
+print(dist)
