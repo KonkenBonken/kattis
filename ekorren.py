@@ -13,11 +13,12 @@ for _ in range(node_count-1):
 curr = tree[0]
 dist = 0
 while len(nut_locations) > 0:
-    queue = deque([curr])
+    queue, visited = deque([curr]), set((curr[0],))
     while len(queue) > 0:
         node = queue.popleft()
+        visited.add(node[0])
         if node[0] in nut_locations:
             del nut_locations[nut_locations.index(node[0])]
             curr = node
             break
-        queue.extend(tree[i] for i in node[1])
+        queue.extend(tree[i] for i in node[1] if tree[i][0] not in visited)
