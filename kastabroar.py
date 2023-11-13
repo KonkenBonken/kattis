@@ -37,4 +37,8 @@ for hill in hills:
         clusters.append(cluster)
         visited.extend(cluster)
 
-print('Ja' if len(clusters)-1 <= len(unnecessary_bridges) else 'Nej')
+if len(clusters)-1 <= len(unnecessary_bridges):
+    print('Ja')
+    print(len(clusters)-1)
+else:
+    print('Nej')
