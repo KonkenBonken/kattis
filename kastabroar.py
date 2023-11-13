@@ -18,6 +18,13 @@ def bfs(start: "tuple[int, tuple[int]]"):
         if hill[0] not in visited:
             visited.add(hill[0])
             queue.extend(hills[i] for i in hill[1])
+    return visited
 
 
-bfs(hills[0])
+visited, clusters = [], []
+
+for hill in hills:
+    if hill[0] not in visited:
+        cluster = bfs(hill)
+        clusters.append(cluster)
+        visited.extend(cluster)
