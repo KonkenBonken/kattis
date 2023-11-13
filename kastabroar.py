@@ -8,14 +8,15 @@ for _ in range(bridge_count):
     hills[a].append(b)
     hills[b].append(a)
 
+hills = [tuple(hill) for hill in hills]
 
 def bfs(start: "list[int]"):
     visited = set()
     queue = deque([start])
     while len(queue) > 0:
         hill = queue.popleft()
-        if str(hill) not in visited:
-            visited.add(str(hill))
+        if hill not in visited:
+            visited.add(hill)
             queue.extend(hills[i] for i in hill)
 
 
