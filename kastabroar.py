@@ -1,23 +1,23 @@
 from collections import deque
 hill_count, bridge_count = (int(x) for x in input().split())
-hills = [[] for _ in range(hill_count)]
+hills = [(i, []) for i in range(hill_count)]
 
 for _ in range(bridge_count):
     a, b = (int(x)-1 for x in input().split())
-    print(a, b)
-    hills[a].append(b)
-    hills[b].append(a)
+    hills[a][1].append(b)
+    hills[b][1].append(a)
 
-hills = [tuple(hill) for hill in hills]
+hills = [(i, tuple(hill)) for i, hill in hills]
 
-def bfs(start: "list[int]"):
+
+def bfs(start: "tuple[int, tuple[int]]"):
     visited = set()
     queue = deque([start])
     while len(queue) > 0:
         hill = queue.popleft()
-        if hill not in visited:
-            visited.add(hill)
-            queue.extend(hills[i] for i in hill)
+        if hill[0] not in visited:
+            visited.add(hill[0])
+            queue.extend(hills[i] for i in hill[1])
 
 
 bfs(hills[0])
