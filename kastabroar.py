@@ -8,16 +8,24 @@ for _ in range(bridge_count):
     hills[b][1].append(a)
 
 hills = [(i, tuple(hill)) for i, hill in hills]
+unnecessary_bridges = set()
 
 
 def bfs(start: "tuple[int, tuple[int]]"):
     visited = set()
-    queue = deque([start])
+    queue = deque([(start, -1)])
+    last = -1
     while len(queue) > 0:
-        hill = queue.popleft()
+        hill, fr = queue.popleft()
         if hill[0] not in visited:
             visited.add(hill[0])
-            queue.extend(hills[i] for i in hill[1])
+            for i in hill[1]:
+                if i in visited:
+                    if i != last:
+                        unnecessary_bridges.add((hill[0], i))
+                else:
+                    queue.append((hills[i], hill[0]))
+            last = hill[0]
     return visited
 
 
@@ -28,3 +36,5 @@ for hill in hills:
         cluster = bfs(hill)
         clusters.append(cluster)
         visited.extend(cluster)
+
+print('Ja' if len(clusters)-1 <= len(unnecessary_bridges) else 'Nej')
