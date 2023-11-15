@@ -13,10 +13,10 @@ unnecessary_bridges = []
 
 def bfs(start: "tuple[int, tuple[int]]"):
     visited = set()
-    queue = deque([(start, -1)])
+    queue = deque([start])
     last = -1
     while len(queue) > 0:
-        hill, fr = queue.popleft()
+        hill = queue.popleft()
         if hill[0] not in visited:
             visited.add(hill[0])
             for i in hill[1]:
@@ -24,7 +24,7 @@ def bfs(start: "tuple[int, tuple[int]]"):
                     if i != last:
                         unnecessary_bridges.append((hill[0], i))
                 else:
-                    queue.append((hills[i], hill[0]))
+                    queue.append(hills[i])
             last = hill[0]
     return tuple(visited)
 
