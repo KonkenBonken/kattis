@@ -10,9 +10,10 @@ for _ in range(Q):
 
     if sign == '+':
         s, a, b = n
-        cams[s] = (a, b)
+        if (a <= Min and b >= Min) or (a <= Max and b >= Max):
+            cams[s] = (a, b)
     else:
-        del cams[n[0]]
+        cams.pop(n[0], 0)
 
     if last1 in cams:
         print(1)
