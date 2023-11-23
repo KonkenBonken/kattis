@@ -14,14 +14,14 @@ for _ in range(Q):
     else:
         del cams[n[0]]
 
-    if last1 in cams.values():
+    if last1 in cams:
         print(1)
         continue
 
-    for a, b in cams.values():
+    for s, (a, b) in cams.items():
         if a <= Min and b >= Max:
             print(1)
-            last1 = (a, b)
+            last1 = s
             break
     else:
         last1 = False
