@@ -12,4 +12,4 @@ while True:
     if p == T:
         print(i)
         break
-    queue.extend((p+q, i+1) for q in proteins)
+    queue.extend((p+q, i+1) for q in proteins if p+q in T)
