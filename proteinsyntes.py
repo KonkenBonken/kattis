@@ -1,3 +1,4 @@
+from collections import deque
 from sys import setrecursionlimit
 setrecursionlimit(10**6)
 
@@ -6,19 +7,11 @@ T = input()
 proteins = [input() for _ in range(int(input()))]
 
 
-def r(a: str, level: int):
-    if a not in T:
-        return
+queue = deque((p, 1) for p in proteins)
 
-    print(a)
-    if a == T:
-        print(level)
-        exit()
-
-    for b in proteins:
-        r(a+b, level+1)
-        r(b+a, level+1)
-
-
-for a in proteins:
-    r(a, 0)
+while True:
+    p, i = queue.popleft()
+    if p == T:
+        print(i)
+        break
+    queue.extend((p+q, i+1) for q in proteins)
