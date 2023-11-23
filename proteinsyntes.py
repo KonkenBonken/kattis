@@ -1,11 +1,9 @@
 from collections import deque
-from sys import setrecursionlimit
-setrecursionlimit(10**6)
 
 input()
 T = input()
-proteins = [input() for _ in range(int(input()))]
-
+proteins = sorted((input()
+                  for _ in range(int(input()))), key=len, reverse=True)
 
 queue = deque((p, 1) for p in proteins)
 
