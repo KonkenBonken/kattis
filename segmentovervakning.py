@@ -31,12 +31,11 @@ for _ in range(Q):
             continue
         for i, (s1, (a, b)) in enumerate(cams.items()):
             for s2, (c, d) in [*cams.items()][i+1:]:
-                if (a, b) != (c, d):
-                    if b >= c and d >= a:
-                        if min(a, c) <= Min and max(b, d) >= Max:
-                            print(2)
-                            last2 = (s1, s2)
-                            break
+                if (a, b) != (c, d) and b >= c and d >= a and \
+                        min(a, c) <= Min and max(b, d) >= Max:
+                    print(2)
+                    last2 = (s1, s2)
+                    break
             else:
                 continue
             break
