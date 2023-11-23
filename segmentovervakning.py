@@ -29,8 +29,8 @@ for _ in range(Q):
         if last2 and last2[0] in cams and last2[1] in cams:
             print(2)
             continue
-        for s1, (a, b) in cams.items():
-            for s2, (c, d) in cams.items():
+        for i, (s1, (a, b)) in enumerate(cams.items()):
+            for s2, (c, d) in [*cams.items()][i+1:]:
                 if (a, b) != (c, d):
                     if b >= c and d >= a:
                         if min(a, c) <= Min and max(b, d) >= Max:
