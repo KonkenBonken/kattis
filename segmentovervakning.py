@@ -2,7 +2,7 @@ Min, Max = (int(x) for x in input().split())
 Q = int(input())
 
 cams = dict()
-last1 = False
+last1, last2 = False, False
 
 for _ in range(Q):
     sign, *n = input().split()
@@ -22,18 +22,24 @@ for _ in range(Q):
         if a <= Min and b >= Max:
             print(1)
             last1 = s
+            last2 = False
             break
     else:
         last1 = False
-        for a, b in cams.values():
-            for c, d in cams.values():
+        if last2 and last2[0] in cams and last2[1] in cams:
+            print(2)
+            continue
+        for s1, (a, b) in cams.items():
+            for s2, (c, d) in cams.items():
                 if (a, b) != (c, d):
                     if b >= c and d >= a:
                         if min(a, c) <= Min and max(b, d) >= Max:
                             print(2)
+                            last2 = (s1, s2)
                             break
             else:
                 continue
             break
         else:
             print(-1)
+            last2 = False
