@@ -1,22 +1,22 @@
 from collections import deque
 
 N = int(input())
-houses = tuple(set() for _ in range(N))
+houses = tuple(list() for _ in range(N))
 
 for _ in range(N-1):
     a, b = (int(x)-1 for x in input().split())
-    houses[a].add(b)
+    houses[a].append(houses[b])
 
 for _ in range(int(input())):
-    h, w = (int(x)-1 for x in input().split())
+    h, w = (houses[int(x)-1] for x in input().split())
 
     queue = deque([h])
     while len(queue) > 0:
         house = queue.popleft()
-        if house == w:
+        if house is w:
             print('ja')
             break
-        queue.extend(houses[house])
-        houses[h].update(houses[house])
+        queue.extend(house)
+        h.extend(house)
     else:
         print('nej')
