@@ -1,11 +1,11 @@
 from collections import deque
 
 N = int(input())
-houses = tuple([] for _ in range(N))
+houses = tuple(set() for _ in range(N))
 
 for _ in range(N-1):
     a, b = (int(x)-1 for x in input().split())
-    houses[a].append(b)
+    houses[a].add(b)
 
 for _ in range(int(input())):
     h, w = (int(x)-1 for x in input().split())
@@ -23,4 +23,4 @@ for _ in range(int(input())):
     else:
         print('nej')
 
-    houses[h].extend(visited)
+    houses[h].update(visited)
