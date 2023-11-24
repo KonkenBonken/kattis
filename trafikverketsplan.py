@@ -7,9 +7,7 @@ for _ in range(N-1):
     a, b = (int(x)-1 for x in input().split())
     houses[a].append(b)
 
-Q = int(input())
-
-for _ in range(Q):
+for _ in range(int(input())):
     h, w = (int(x)-1 for x in input().split())
 
     queue = deque([h])
