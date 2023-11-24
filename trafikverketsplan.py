@@ -22,3 +22,5 @@ for _ in range(int(input())):
             visited.add(house)
     else:
         print('nej')
+
+    houses[h].extend(visited)
