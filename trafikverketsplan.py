@@ -1,5 +1,3 @@
-from collections import deque
-
 N = int(input())
 houses = tuple(set() for _ in range(N))
 
@@ -10,9 +8,8 @@ for _ in range(N-1):
 for _ in range(int(input())):
     h, w = (int(x)-1 for x in input().split())
 
-    queue = deque([h])
-    while len(queue) > 0:
-        house = queue.popleft()
+    queue = [h]
+    for house in queue:
         if house == w:
             print('ja')
             break
