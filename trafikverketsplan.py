@@ -11,16 +11,12 @@ for _ in range(int(input())):
     h, w = (int(x)-1 for x in input().split())
 
     queue = deque([h])
-    visited = set()
     while len(queue) > 0:
         house = queue.popleft()
         if house == w:
             print('ja')
             break
-        if house not in visited:
-            queue.extend(houses[house])
-            visited.add(house)
+        queue.extend(houses[house])
+        houses[h].update(houses[house])
     else:
         print('nej')
-
-    houses[h].update(visited)
