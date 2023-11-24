@@ -19,5 +19,6 @@ for _ in range(int(input())):
             break
         if house not in visited:
             queue.extend(houses[house])
+            visited.add(house)
     else:
         print('nej')
