@@ -10,6 +10,10 @@ for _ in range(N-1):
 for _ in range(int(input())):
     h, w = (int(x)-1 for x in input().split())
 
+    if w in houses[h]:
+        print('ja')
+        continue
+
     queue = deque([h])
     while len(queue) > 0:
         house = queue.popleft()
