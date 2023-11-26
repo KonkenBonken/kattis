@@ -1,8 +1,7 @@
 Min, Max = (int(x) for x in input().split())
 Q = int(input())
 
-cams = dict()
-last1, last2 = False, False
+l_cams, u_cams, f_cams = dict(), dict(), set()
 
 for _ in range(Q):
     sign, *n = input().split()
@@ -10,38 +9,22 @@ for _ in range(Q):
 
     if sign == '+':
         s, a, b = n
-        if (a <= Min and b >= Min) or (a <= Max and b >= Max):
-            cams[s] = (a, b)
-    else:
-        cams.pop(n[0], 0)
-
-    if last1 in cams:
-        print(1)
-        continue
-
-    items = cams.items()
-
-    for s, (a, b) in items:
         if a <= Min and b >= Max:
-            print(1)
-            last1 = s
-            last2 = False
-            break
+            f_cams.add(s)
+        elif a <= Min and b >= Min:
+            l_cams[s] = b
+        elif a <= Max and b >= Max:
+            u_cams[s] = a
     else:
-        last1 = False
-        if last2 and last2[0] in cams and last2[1] in cams:
-            print(2)
-            continue
-        for i, (s1, (a, b)) in enumerate(items):
-            for s2, (c, d) in [*items][i+1:]:
-                if (a, b) != (c, d) and b >= c and d >= a and \
-                        min(a, c) <= Min and max(b, d) >= Max:
-                    print(2)
-                    last2 = (s1, s2)
-                    break
-            else:
-                continue
-            break
-        else:
-            print(-1)
-            last2 = False
+        l_cams.pop(n[0], 0)
+        u_cams.pop(n[0], 0)
+        f_cams.discard(n[0])
+
+    if len(f_cams) != 0:
+        print(1)
+    elif len(l_cams) == 0 or len(u_cams) == 0:
+        print(-1)
+    elif max(l_cams.values()) >= min(u_cams.values()):
+        print(2)
+    else:
+        print(-1)
