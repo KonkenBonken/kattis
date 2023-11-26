@@ -4,11 +4,10 @@ Q = int(input())
 l_cams, u_cams, f_cams = dict(), dict(), set()
 
 for _ in range(Q):
-    sign, *n = input().split()
-    n = tuple(int(x) for x in n)
+    sign, s, *n = input().split()
 
     if sign == '+':
-        s, a, b = n
+        a, b = (int(x) for x in n)
         if a <= Min and b >= Max:
             f_cams.add(s)
         elif a <= Min and b >= Min:
@@ -16,9 +15,9 @@ for _ in range(Q):
         elif a <= Max and b >= Max:
             u_cams[s] = a
     else:
-        l_cams.pop(n[0], 0)
-        u_cams.pop(n[0], 0)
-        f_cams.discard(n[0])
+        l_cams.pop(s, 0)
+        u_cams.pop(s, 0)
+        f_cams.discard(s)
 
     if len(f_cams) != 0:
         print(1)
