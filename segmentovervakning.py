@@ -21,8 +21,9 @@ for _ in range(Q):
 
     if len(f_cams) != 0:
         print(1)
-    elif len(l_cams) != 0 and len(u_cams) != 0:
-        if max(l_cams.values()) >= min(u_cams.values()):
-            print(2)
-            continue
-    print(-1)
+    elif len(l_cams) == 0 or len(u_cams) == 0:
+        print(-1)
+    elif max(l_cams.values()) >= min(u_cams.values()):
+        print(2)
+    else:
+        print(-1)
