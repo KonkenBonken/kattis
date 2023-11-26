@@ -14,18 +14,18 @@ for _ in range(Q):
             f_cams.add(s)
         elif a <= Min and b >= Min:
             l_cams[s] = b
-            l_chg = True
+            l_max = max(l_max, b)
         elif a <= Max and b >= Max:
             u_cams[s] = a
-            u_chg = True
+            u_min = min(u_min, a)
     else:
         if l_cams.pop(s, -1) == -1:
             if u_cams.pop(s, -1) == -1:
                 f_cams.discard(s)
             else:
-                u_chg = True
+                u_min = min([*u_cams.values(), 10**9])
         else:
-            l_chg = True
+            l_max = max([*l_cams.values(), 0])
 
     if len(f_cams) != 0:
         print(1)
@@ -33,11 +33,6 @@ for _ in range(Q):
     elif len(l_cams) == 0 or len(u_cams) == 0:
         print(-1)
         continue
-
-    if l_chg:
-        l_max = max(l_cams.values())
-    if u_chg:
-        u_min = min(u_cams.values())
 
     if l_max >= u_min:
         print(2)
