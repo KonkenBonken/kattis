@@ -15,9 +15,9 @@ for _ in range(Q):
         elif a <= Max and b >= Max:
             u_cams[s] = a
     else:
-        l_cams.pop(s, 0)
-        u_cams.pop(s, 0)
-        f_cams.discard(s)
+        if l_cams.pop(s, -1) == -1:
+            if u_cams.pop(s, -1) == -1:
+                f_cams.discard(s)
 
     if len(f_cams) != 0:
         print(1)
