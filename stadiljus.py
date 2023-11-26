@@ -6,7 +6,7 @@ sum = 0
 
 for i, place in enumerate(places):
     sum += place
-    if sum//(i+1) > max_mean:
+    if sum/(i+1) > max_mean:
         print(i)
         break
 else:
