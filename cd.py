@@ -8,5 +8,8 @@ while True:
     for _ in range(N):
         jill += 1 << int(input())
 
-    uni = jack & jill
-    print(bin(uni).count("1"))
+    union = jack & jill
+    print(sum(
+        1 for i in range(union.bit_length())
+        if union & 1 << i
+    ))
