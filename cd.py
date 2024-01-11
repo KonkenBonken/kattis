@@ -2,14 +2,18 @@ while True:
     N, M = (int(x) for x in input().split())
     if N == 0 and M == 0:
         break
-    jack, jill = 0, 0
-    for _ in range(N):
-        jack += 1 << int(input())
-    for _ in range(N):
-        jill += 1 << int(input())
+    jack = [int(input()) for _ in range(N)]
+    jill = [int(input()) for _ in range(M)]
 
-    union = jack & jill
-    print(sum(
-        1 for i in range(union.bit_length())
-        if union & 1 << i
-    ))
+    CDs, i, j = 0, 0, 0
+    while i < N and j < M:
+        a, b = jack[i], jill[j]
+        if a < b:
+            i += 1
+        elif a > b:
+            j += 1
+        else:
+            i += 1
+            j += 1
+            CDs += 1
+    print(CDs)
