@@ -1,9 +1,11 @@
+from sys import stdin
+
 while True:
-    N, M = (int(x) for x in input().split())
+    N, M = (int(x) for x in stdin.readline().split())
     if N == 0 and M == 0:
         break
-    jack = [int(input()) for _ in range(N)]
-    jill = [int(input()) for _ in range(M)]
+    jack = [int(stdin.readline()) for _ in range(N)]
+    jill = [int(stdin.readline()) for _ in range(M)]
 
     CDs, i, j = 0, 0, 0
     while i < N and j < M:
