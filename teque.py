@@ -1,17 +1,31 @@
 from collections import deque
 
 
-teque = deque()
+left, right = deque(), deque()
 
 for _ in range(int(input())):
     cmd, num = input().split()
     num = int(num)
 
     if cmd == 'push_back':
-        teque.append(num)
+        right.append(num)
+
     elif cmd == 'push_front':
-        teque.appendleft(num)
+        left.appendleft(num)
+
     elif cmd == 'push_middle':
-        teque.insert((len(teque)+1)//2, num)
+        if (len(left) != len(right)) and (len(left) != len(right) + 1):
+
+            while len(left) < len(right):
+                left.append(right.popleft())
+
+            while len(left) > len(right) + 1:
+                right.appendleft(left.pop())
+
+        right.appendleft(num)
+
     elif cmd == 'get':
-        print(teque[num])
+        if num < len(left):
+            print(left[num])
+        else:
+            print(right[num - len(left)])
