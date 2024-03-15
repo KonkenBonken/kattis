@@ -25,7 +25,7 @@ class deque:
         return v
 
     def __getitem__(self, i: int):
-        return self.d[i]
+        return self.d[self.a + i]
 
     def __len__(self):
         return self.b - self.a + 1
