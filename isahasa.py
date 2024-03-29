@@ -17,7 +17,16 @@ for _ in range(N):
 for i in range(1, M+1):
     a, cmd, b = input().split()
     if cmd == 'is-a':
-        print(f'Query {i}: {a in isa and b in isa[a]}')
+        print(f'Query {i}: {str(a in isa and b in isa[a]).lower()}')
 
     if cmd == 'has-a':
-        print(f'Query {i}: {a in hasa and b in hasa[a]}')
+        if a in hasa and b in hasa[a]:
+            print(f'Query {i}: true')
+
+        else:
+            for cls in isa[a]:
+                if cls in hasa and b in hasa[cls]:
+                    print(f'Query {i}: true')
+                    break
+            else:
+                print(f'Query {i}: false')
