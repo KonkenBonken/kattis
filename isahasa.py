@@ -17,15 +17,21 @@ for _ in range(N):
     objects[a][cmd].append(objects[b])
 
 
+def isaMemo(a, b):
+    objects[a]['is-a'].insert(0, {'name': b, 'is-a': [], 'has-a': []})
+
+
 def isa(a, b):
     if a == b:
         return True
 
     for obj in objects[a]['is-a']:
         if obj['name'] == b:
+            isaMemo(a, b)
             return True
 
         for o in obj['is-a']:
+            isaMemo(a, b)
             if isa(a, o['name']):
                 return True
 
