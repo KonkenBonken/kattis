@@ -33,6 +33,9 @@ def isa(a, b):
 
 
 def hasa(a, b):
+    if a == b:
+        return False
+
     for obj in objects[a]['has-a']:
         if obj['name'] == b:
             return True
