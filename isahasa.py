@@ -1,32 +1,42 @@
 N, M = (int(x) for x in input().split())
 
-isa, hasa = dict(), dict()
+objects = dict()
 
 for _ in range(N):
     a, cmd, b = input().split()
-    if cmd == 'is-a':
-        if a not in isa:
-            isa[a] = [a]
-        isa[a].append(b)
 
-    if cmd == 'has-a':
-        if a not in hasa:
-            hasa[a] = [a]
-        hasa[a].append(b)
+    if a == b:
+        continue
+
+    if a not in objects:
+        objects[a] = {'name': a, 'is-a': [], 'has-a': []}
+
+    if b not in objects:
+        objects[b] = {'name': b, 'is-a': [], 'has-a': []}
+
+    objects[a][cmd].append(objects[b])
+
+
+def isa(a, b):
+    if a == b:
+        return True
+
+    for isa in objects[a]['is-a']:
+        if isa['name'] == b:
+            return True
+
+        for o in isa['is-a']:
+            if isa(a, o):
+                return True
+
+    return False
+
 
 for i in range(1, M+1):
     a, cmd, b = input().split()
+
     if cmd == 'is-a':
-        print(f'Query {i}: {str(a in isa and b in isa[a]).lower()}')
-
-    if cmd == 'has-a':
-        if a in hasa and b in hasa[a]:
+        if isa(a, b):
             print(f'Query {i}: true')
-
         else:
-            for cls in isa[a]:
-                if cls in hasa and b in hasa[cls]:
-                    print(f'Query {i}: true')
-                    break
-            else:
-                print(f'Query {i}: false')
+            print(f'Query {i}: false')
