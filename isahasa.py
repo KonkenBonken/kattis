@@ -21,13 +21,33 @@ def isa(a, b):
     if a == b:
         return True
 
-    for isa in objects[a]['is-a']:
-        if isa['name'] == b:
+    for obj in objects[a]['is-a']:
+        if obj['name'] == b:
             return True
 
-        for o in isa['is-a']:
-            if isa(a, o):
+        for o in obj['is-a']:
+            if isa(a, o['name']):
                 return True
+
+    return False
+
+
+def hasa(a, b):
+    for obj in objects[a]['has-a']:
+        if obj['name'] == b:
+            return True
+
+        for o in obj['is-a']:
+            if o['name'] == b:
+                return True
+
+    for obj in objects[a]['is-a']:
+        for o in obj['is-a']:
+            if o['name'] == b:
+                return True
+
+        if isa(a, obj['name']):
+            return True
 
     return False
 
@@ -37,6 +57,12 @@ for i in range(1, M+1):
 
     if cmd == 'is-a':
         if isa(a, b):
+            print(f'Query {i}: true')
+        else:
+            print(f'Query {i}: false')
+
+    elif cmd == 'has-a':
+        if hasa(a, b):
             print(f'Query {i}: true')
         else:
             print(f'Query {i}: false')
