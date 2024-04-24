@@ -17,6 +17,9 @@ while True:
                 best = sub
 
         for s in range(len(seq)):
+            if s+1 < len(seq) and seq[s][1] > seq[s+1][1]:
+                continue
+
             if len(seq) - s > len(best):
                 subseq([seq[s][0]], s)
 
