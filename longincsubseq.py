@@ -7,19 +7,18 @@ while True:
         def subseq(sub: 'list[int]', start: int):
             global best
 
-            if len(sub) + len(seq) - start < len(best):
-                return
-
             for i, n in seq[start + 1:]:
                 if n > seq[sub[-1]][1]:
-                    subseq(sub.copy(), i+1)
+                    if len(sub) + len(seq) - i - 1 > len(best):
+                        subseq(sub.copy(), i+1)
                     sub.append(i)
 
             if len(sub) > len(best):
                 best = sub
 
         for s in range(len(seq)):
-            subseq([seq[s][0]], s)
+            if len(seq) - s > len(best):
+                subseq([seq[s][0]], s)
 
         print(len(best))
         print(*best)
