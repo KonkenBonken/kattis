@@ -6,10 +6,15 @@ while True:
 
         def subseq(sub: 'list[int]', start: int):
             global best
+
+            if len(sub) + len(seq) - start < len(best):
+                return
+
             for i, n in seq[start + 1:]:
                 if n > seq[sub[-1]][1]:
                     subseq(sub.copy(), i+1)
                     sub.append(i)
+
             if len(sub) > len(best):
                 best = sub
 
