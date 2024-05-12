@@ -39,6 +39,42 @@ if W == 1 or H == 1:
     print(coast)
     exit()
 
+if H == 2:
+    p = grid[0][0]
+    coast = 0
+    if p:
+        coast += 2
+    if grid[W-1][0]:
+        coast += 1
+
+    for l, _, _ in grid[1:W]:
+        if p != l:
+            coast += 1
+        if l:
+            coast += 1
+        p = l
+
+    p = grid[W][0]
+    if p:
+        coast += 2
+    if grid[-1][0]:
+        coast += 1
+    if grid[0][0] != p:
+        coast += 1
+
+    for i, t in enumerate(grid[W+1:]):
+        l = t[0]
+        if p != l:
+            coast += 1
+        if l:
+            coast += 1
+        if grid[i+1][0] != l:
+            coast += 1
+        p = l
+
+    print(coast)
+    exit()
+
 queue = deque((l, x, y) for l, x, y in grid
               if not l and (y == 0 or y == H-1 or x == 0 or x == W-1))
 
