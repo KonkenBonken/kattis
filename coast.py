@@ -39,7 +39,11 @@ if W == 1 or H == 1:
     print(coast)
     exit()
 
-if H == 2:
+if W == 2 or H == 2:
+    if H > W:
+        grid = [a[0] for a in zip(grid[::-1])]
+        H, W = W, H
+
     p = grid[0][0]
     coast = 0
     if p:
