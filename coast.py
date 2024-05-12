@@ -26,8 +26,8 @@ def neighbors(tile):
 queue = deque((l, x, y) for l, x, y in grid
               if not l and (y == 0 or y == H-1 or x == 0 or x == W-1))
 
-coast = 0
-visited = set()
+coast = H*2 + W*2 - 4 - len(queue)
+visited = set(queue)
 
 visual = [[0 for x in range(W)] for y in range(H)]
 
@@ -43,7 +43,7 @@ while len(queue):
         else:
             if n not in visited:
                 queue.append(n)
-    visited.add(tile)
+                visited.add(n)
 
 print(*visual, sep='\n')
 
