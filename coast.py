@@ -23,6 +23,22 @@ def neighbors(tile):
     ] if t)
 
 
+if W == 1 or H == 1:
+    p = grid[0][0]
+    coast = 0
+    if p:
+        coast += 3
+    for l, _, _ in grid[1:]:
+        if p != l:
+            coast += 1
+        if l:
+            coast += 2
+        p = l
+    if p:
+        coast += 1
+    print(coast)
+    exit()
+
 queue = deque((l, x, y) for l, x, y in grid
               if not l and (y == 0 or y == H-1 or x == 0 or x == W-1))
 
