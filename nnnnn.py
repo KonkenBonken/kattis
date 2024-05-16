@@ -1,32 +1,29 @@
+from math import floor, log10
+
 L = int(input())
 
 
-def en(n):
-    return n * len(str(n))
+def encrypt(n):
+    return n*floor(log10(n*10))
 
 
-def pr(n):
-    print(n)
-    exit()
+def steps():
+    for p in range(1000, 0, -1):
+        yield pow(10, p)
+    yield from (5, 3, 2, 1)
 
 
-n = 1
-e = en(n)
+head = pow(10, 10)
 
-
-for p in range(100, 1, -1):
+for step in steps():
+    encrypted = encrypt(head)
+    is_less = encrypted < L
+    direction = 1 if is_less else -1
     while True:
-        t = n + n//p + 1
-        if en(t) > L:
+        next = head+direction*step
+        if next > 0 and is_less == (encrypt(next) < L):
+            head = next
+        else:
             break
-        n = t
-        e = en(n)
-    if L-e < 100:
-        break
 
-while True:
-    e = en(n)
-    if e == L:
-        pr(n)
-    else:
-        n += 1
+print(head)
