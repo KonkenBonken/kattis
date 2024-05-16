@@ -10,12 +10,22 @@ def encrypt(n):
 def steps():
     for p in range(1000, 0, -1):
         yield pow(10, p)
-    yield from (5, 3, 2, 1)
 
 
 head = pow(10, 10)
 
 for step in steps():
+    encrypted = encrypt(head)
+    is_less = encrypted < L
+    multiply = is_less
+    while True:
+        next = head*step if multiply else head//step
+        if next > 0 and is_less == (encrypt(next) < L):
+            head = next
+        else:
+            break
+
+for step in (100, 10, 3, 1):
     encrypted = encrypt(head)
     is_less = encrypted < L
     direction = 1 if is_less else -1
