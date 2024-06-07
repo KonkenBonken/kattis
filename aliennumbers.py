@@ -3,7 +3,7 @@ for case in range(int(input())):
     res = ''
 
     num = sum(src.index(c) * len(src)**i for i, c in enumerate(reversed(ali)))
-    strt = next(i for i in range(10**10) if num < len(trg)**i)
+    strt = next(i for i in range(94) if num < len(trg)**i)
         
     for i in range(strt-1, -1, -1):
         div, num = divmod(num, len(trg)**i)
