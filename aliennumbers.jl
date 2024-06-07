@@ -1,28 +1,16 @@
 for caseNum in 1:parse(UInt8, readline())
   ali, src, trg = split(readline())
 
-  num = 0
+  num = reduce((tot, (i, c)) -> tot + (findfirst(c, src) - 1) * length(src)^(i - 1), enumerate(ali[end:-1:1]); init=0)
+  reslen = findfirst(i -> num < length(trg)^(i + 1), 0:10^10)
 
-  for (i, c) in enumerate(ali[end:-1:1])
-    num += (findfirst(c, src) - 1) * length(src)^(i - 1)
-  end
-
-  reslen = 0
-
-  for i in 0:10^10
-    if num < length(trg)^i
-      reslen = i
-      break
-    end
-  end
-
-  res = ""
-
-  for i in reslen-1:-1:0
+  function digit(i)
     div = num ÷ length(trg)^i + 1
     num %= length(trg)^i
-    res *= trg[div]
+    return trg[div]
   end
+
+  res = reduce(*, map(digit, reslen-1:-1:0))
 
   println("Case #", caseNum, ": ", res)
 end
