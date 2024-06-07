@@ -1,7 +1,5 @@
-cases = readlines()[2:end]
-
-for (caseNum, case) in enumerate(cases)
-  ali, src, trg = split(case)
+for caseNum in 1:parse(UInt8, readline())
+  ali, src, trg = split(readline())
 
   num = 0
 
@@ -18,12 +16,12 @@ for (caseNum, case) in enumerate(cases)
     end
   end
 
-  res = string("")
+  res = ""
 
   for i in reslen-1:-1:0
     div = num ÷ length(trg)^i + 1
     num %= length(trg)^i
-    res *= string(trg[div])
+    res *= trg[div]
   end
 
   println("Case #", caseNum, ": ", res)
